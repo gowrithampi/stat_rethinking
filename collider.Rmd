@@ -1,0 +1,42 @@
+---
+title: "Collider"
+output: html_notebook
+---
+I had a sudden doubt about colliders and conditioning in general. Whether conditioning for binary variables works the same as conditioning for continuous variables. I think a large reason for this is my confusion with regard to the actual matrix algebra for regression in the case of categorical variables. 
+
+This exercise helped me clear it. To state my thoughts. Even though the slope of the regression remains constant for both categories, if the categorical variable is not added as an interaction, this slope is different from the slope that we would have had if we hadn't added the categorical variable at all. 
+
+Hence adding a categorical variable (as a dummy for instance) is an effective control. It does change the measured slope. 
+
+ *Cmd+Shift+Enter*. 
+```{r}
+library(purrr)
+```
+
+```{r}
+Looks<-rnorm(1000,0,1)
+Talent<-rnorm(1000,0,1)
+Fame<- 1 + 0.5*Looks + 0.5*Talent + rnorm(1000,0,1)
+Fame_scaled = scale(Fame)
+lm(Looks ~ Talent + Fame_scaled)
+```
+
+
+```{r}
+## what if one of the variables, say Looks was binary
+Looks<-rbernoulli(1000,0.5)
+Talent<-rnorm(1000,0,1)
+Fame<- 1 + 0.5*Looks + 0.5*Talent #+ rnorm(1000,0,1) #adding rnorm makes it more real world (like a sigma but harder to see coefficients )
+Fame_scaled = scale(Fame)
+lm(Looks ~ Talent + Fame_scaled)
+
+lm(Looks ~  Talent)
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file). 
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+

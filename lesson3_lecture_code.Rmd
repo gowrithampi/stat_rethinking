@@ -1,0 +1,42 @@
+---
+title: "lecture_3_videocode"
+author: "Gowri Thampi"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Trying out code seen in lecture 3 
+```{r}
+## Simulate the height of a hundred individuals as a function of weight, example of a static generative model
+H<-function(b,W,sd){ 
+  U<-rnorm(length(W),mean = 0, sd = 1)
+  H = b*W + U
+  return(H)
+}
+
+```
+
+
+```{r}
+W<-runif(500,140,190)
+print(H(W,0.5,0.1))
+
+
+```
+
+
+```{r}
+W
+```
+
+
+```{r}
+```
+
+
+
